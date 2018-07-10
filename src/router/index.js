@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Dashboard from '@/components/Dashboard'
 
-import KefuList from '@/components/kefu/list'
+import KefuList from '@/components/kefu/msgmanage'
 import kefuCategory from '@/components/kefu/category'
 import reportCategory from '@/components/kefu/report'
 

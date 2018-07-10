@@ -9,7 +9,7 @@
     </el-col>
       <!-- 按钮组 -->
     <el-row class="list_btn">
-      <el-button type="danger" plain>创建车辆信息</el-button>
+      <el-button type="danger" plain @click="dialogVisible= true">创建车辆信息</el-button>
       <el-button type="primary" plain>分配保险数据</el-button>
       <el-button type="success" plain>单车分配</el-button>
       <el-button type="info" plain>回收数据</el-button>
@@ -109,31 +109,32 @@
         </el-form>
       </el-col>
       <transition name="fade" mode="out-in">
-      <!--列表-->
-      <el-table :data="books" highlight-current-row @selection-change="selsChange"
-                style="width: 100%;">
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column type="index" width="60"></el-table-column>
-        <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="[图书简介]">
-                <span>{{ props.row.description }}</span>
-              </el-form-item>
-            </el-form>
-          </template>
-        </el-table-column>
-        <el-table-column prop="name" label="书名" sortable></el-table-column>
-        <el-table-column prop="author" label="作者" width="100" sortable></el-table-column>
-        <el-table-column prop="publishAt" label="出版日期" width="150" sortable></el-table-column>
-        <el-table-column label="操作" width="150">
-          <template slot-scope="scope">
-            <el-button size="small" @click="showEditDialog(scope.$index,scope.row)">编辑</el-button>
-            <el-button type="danger" @click="delBook(scope.$index,scope.row)" size="small">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+          <!--列表-->
+          <el-table :data="riskdata" highlight-current-row @selection-change="selsChange"
+                    style="width: 100%;">
+            <el-table-column type="selection" width="55"></el-table-column>
+            <el-table-column type="index" width="60"></el-table-column>
+            <el-table-column type="expand">
+              <template slot-scope="props">
+                <el-form label-position="left" inline class="demo-table-expand">
+                  <el-form-item label="[图书简介]">
+                    <span>{{ props.row.description }}</span>
+                  </el-form-item>
+                </el-form>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="书名" sortable></el-table-column>
+            <el-table-column prop="author" label="作者" width="100" sortable></el-table-column>
+            <el-table-column prop="publishAt" label="出版日期" width="150" sortable></el-table-column>
+            <el-table-column label="操作" width="150">
+              <template slot-scope="scope">
+                <el-button size="small" @click="showEditDialog(scope.$index,scope.row)">编辑</el-button>
+                <el-button type="danger" @click="delBook(scope.$index,scope.row)" size="small">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
       </transition>
+
       <!--工具条-->
       <el-col :span="24" class="toolbar">
         <el-button type="danger" @click="batchDeleteBook" :disabled="this.sels.length===0">批量删除</el-button>
@@ -142,26 +143,8 @@
         </el-pagination>
       </el-col>
 
-      <el-dialog title="编辑" :visible.sync ="editFormVisible" :close-on-click-modal="false">
-        <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
-          <el-form-item label="书名" prop="name">
-            <el-input v-model="editForm.name" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="作者" prop="author">
-            <el-input v-model="editForm.author" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="出版日期">
-            <el-date-picker type="date" placeholder="选择日期" v-model="editForm.publishAt"></el-date-picker>
-          </el-form-item>
-          <el-form-item label="简介" prop="description">
-            <el-input type="textarea" v-model="editForm.description" :rows="8"></el-input>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click.native="editFormVisible = false">取消</el-button>
-          <el-button type="primary" @click.native="editSubmit">提交</el-button>
-        </div>
-      </el-dialog>
+      <!-- 车辆信息编辑 -->
+       <carmessage :dialogVisible='dialogVisible'></carmessage>
 
       <!--新增界面-->
       <el-dialog title="新增" :visible.sync ="addFormVisible" :close-on-click-modal="false">
@@ -191,8 +174,9 @@
 <script>
   import util from '../../common/util'
   import API from '../../api/api_book';
-
+  import carmessage from './msgmanage/carmessage';
   export default{
+    components:{carmessage},
     data(){
       return {
         carsearch: {
@@ -206,8 +190,7 @@
           ctl00_cphSearchPanel_ddlSrhLastCompany:'',
           ddlsrhpersonalororg:'',
           ddlSrhInsCounts:'',
-          ctl00$cphSearchPanel$ddlSrhDistribute:''
-
+          ctl00$cphSearchPanel$ddlSrhDistribute:'',
         },
         initialtime:'',
         stoptime:'',
@@ -219,7 +202,7 @@
            {
             value:'2',
             label:'单位'
-          }
+          },
         ],
         cartype:[
           {
@@ -295,15 +278,16 @@
               value: '选项5',
               label: '北京烤鸭'
             }],
-        books: [],
+        riskdata: [
+          {},
+          {}
+          ],
         total: 0,
         page: 1,
         limit: 10,
         loading: false,
-        sels: [], //列表选中列
-
-        //编辑相关数据
-        editFormVisible: false,//编辑界面是否显示
+        sels: [], //列表选中列 
+        dialogVisible: false,//编辑界面是否显示
         editFormRules: {
           name: [
             {required: true, message: '请输入书名', trigger: 'blur'}
@@ -322,7 +306,7 @@
           publishAt: '',
           description: ''
         },
-
+        
         //新增相关数据
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
@@ -346,6 +330,7 @@
       }
     },
     methods: {
+     
       handleCurrentChange(val) {
         this.page = val;
         this.search();
