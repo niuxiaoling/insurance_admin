@@ -3,15 +3,13 @@
 
 ## 介绍
 
-
 ### 说明
 
 　这是一个用vuejs2.0和element-ui 2.x搭建的后台管理界面。
-  演示地址：[http://lit.ipyro.cn](http://lit.ipyro.cn)
-    
+
 ### 项目结构
 ```
-├── build  #webpack编译相关文件目录，一般不用动 
+├── build  #webpack编译相关文件目录，一般不用动
 ├── config  #配置目录
 │   ├────dev.env.js  #开发环境变量
 │   ├────index.js    #主配置文件
@@ -39,6 +37,7 @@
 * element-ui：一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的组件库。
 * vue-router：官方的路由组件，配合vue.js创建单页应用（SPA）非常简单。
 * axios: 基于 Promise 的 HTTP 请求客户端，可同时在浏览器和 node.js 中使用。
+*　echarts 图表　
 
 ## 项目编译和运行
 
@@ -50,22 +49,22 @@
 可以直接在git上下载项目源码。
 或者通过git命令下载
 #git命令下载
-git clone https://github.com/jerry9022/LitAdmin
+git clone  https://github.com/niuxiaoling/insurance_admin.git
 
 假定项目已经下载下来了。
 
 第三步：启动服务端
 （1）新开一个命令行窗口
 （2）定位到项目中的server目录并安装依赖
-  > cd 你自己的位置/LitAdmin/server
+  > cd 你自己的位置/caradmin/server
   > npm install
 （3）依赖安装成功后执行启动命令
-  > npm start 
+  > npm start
   # 显示如下内容说明服务端启动成功
   # Server is runing... Listening on port 3000
   # Listening at http://localhost:3000
-  
-  
+
+
 第四步：启动前端
 （1）新开一个命令行窗口
 （2）定位到项目目录并安装依赖
@@ -76,8 +75,8 @@ git clone https://github.com/jerry9022/LitAdmin
   # 显示如下内容说明本地启动成功
   # DONE Compiled successfully in 7515ms
   # Listening at http://localhost:8081
-   
-   
+
+
 #正式环境编译命令
 # build for production with minification
 npm run build
@@ -88,21 +87,21 @@ npm run build
 ### 更新日志
 > 2018-03-26
  >> 1.接口跨域请求处理方式修改。
-  
+
  > 2018-02-27
- >> 1.界面部分bug修改。  
- 
+ >> 1.界面部分bug修改。
+
  > 2017-12-13
- >> 1.去掉了canvas绘图代码。  
- >> 2.element-ui升级的2.0.7，vue版本升级到2.5.9。  
- 
+ >> 1.去掉了canvas绘图代码。
+ >> 2.element-ui升级的2.0.7，vue版本升级到2.5.9。
+
  > 2017-11-13
- >> 1.去掉先前在前端写的模拟数据，增加server端提供模拟数据。  
- >> 2.代码优化。  
- 
+ >> 1.去掉先前在前端写的模拟数据，增加server端提供模拟数据。
+ >> 2.代码优化。
+
  > 2017-09-20
- >> 1.主要组件升级：vue.js升级到v2.4.4，element-ui升级到v1.4.4，其它组件升级  
- >> 2.主界面左侧菜单栏修改，使用element-ui升级的导航组件支持折叠功能。  
+ >> 1.主要组件升级：vue.js升级到v2.4.4，element-ui升级到v1.4.4，其它组件升级
+ >> 2.主界面左侧菜单栏修改，使用element-ui升级的导航组件支持折叠功能。
  >> 3.其它调整。
 
 
