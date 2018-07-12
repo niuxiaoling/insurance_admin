@@ -7,8 +7,8 @@
                     <el-breadcrumb-item>客户开发</el-breadcrumb-item>
                     <el-breadcrumb-item>业绩报告</el-breadcrumb-item>
                 </el-breadcrumb>
-            </el-col> 
-        </el-row>  
+            </el-col>
+        </el-row>
         <el-row>
             <el-button type="primary" icon="el-icon-sort-top">开启自动刷新</el-button>
             <el-button type="info" icon="el-icon-sort-down">停止自动刷新</el-button>
@@ -24,8 +24,8 @@
                         <i class="el-icon-time"></i>
                         <span style="margin-left: 10px">{{ scope.row.donetime }}</span>
                     </template>
-                </el-table-column> 
-                <el-table-column  label="操作者" width="100" prop="doneowner"></el-table-column>   
+                </el-table-column>
+                <el-table-column  label="操作者" width="100" prop="doneowner"></el-table-column>
                 <el-table-column label="车牌号码" prop="donenumber" width="130"></el-table-column>
                 <el-table-column label="车主姓名" prop="donename"  width="100"></el-table-column>
                 <el-table-column label="状态" prop="donestatus" width="120"></el-table-column>
@@ -84,7 +84,8 @@
                     donestatus:'跟踪-已报价',
                     doneresult:"[跟踪-已报价]未接"
                     }],
-                loading:false    
+                loading:false,
+                currentPage4:1
 
             }
         },
@@ -111,7 +112,7 @@
        justify-content: flex-end;
     }
     /* .el-table thead{
-        background: 
+        background:
     } */
 
 </style>

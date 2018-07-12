@@ -3,11 +3,13 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Dashboard from '@/components/Dashboard'
 
-import KefuList from '@/components/kefu/msgmanage'
+import msgmanage from '@/components/kefu/msgmanage'
 import kefuCategory from '@/components/kefu/category'
 import reportCategory from '@/components/kefu/report'
+import Historical from '@/components/kefu/Historical'
 
-import StroreManage from '@/components/store/list'
+
+import StroreManage from '@/components/store/storemanage'
 
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
@@ -58,9 +60,10 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-books',
       children: [
-        {path: '/kefu/list', component: KefuList, name: '信息管理', menuShow: true},
+        {path: '/kefu/msgmanage', component: msgmanage, name: '信息管理', menuShow: true},
         {path: '/kefu/category', component: kefuCategory, name: '保险客户开发', menuShow: true},
         {path: '/kefu/report', component: reportCategory, name: '业绩报告', menuShow: true},
+        {path: '/kefu/Historical ', component: Historical, name: '开发历史报告', menuShow: true},
       ]
     },
     {

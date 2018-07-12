@@ -9,7 +9,7 @@
     </el-col>
       <!-- 按钮组 -->
     <el-row class="list_btn">
-      <el-button type="danger" plain @click="dialogVisible= true">创建车辆信息</el-button>
+      <el-button type="danger" @click="dialogVisible = true">创建车辆信息</el-button>
       <el-button type="primary" plain>分配保险数据</el-button>
       <el-button type="success" plain>单车分配</el-button>
       <el-button type="info" plain>回收数据</el-button>
@@ -41,7 +41,7 @@
               <el-date-picker size="small" v-model="stoptime"  type="datetimerange" range-separator="至"  start-placeholder="起始时间"
                     end-placeholder="终止时间">
                </el-date-picker>
-          </el-form-item> 
+          </el-form-item>
           <el-form-item label="地址">
               <el-input size="small" v-model="carsearch.txtSrhArea" placeholder="地址" ></el-input>
           </el-form-item>
@@ -105,7 +105,7 @@
           <el-form-item>
             <el-button size="small" type="primary" @click="showAddDialog">重置</el-button>
           </el-form-item>
-          
+
         </el-form>
       </el-col>
       <transition name="fade" mode="out-in">
@@ -144,39 +144,66 @@
       </el-col>
 
       <!-- 车辆信息编辑 -->
-       <carmessage :dialogVisible='dialogVisible'></carmessage>
-
-      <!--新增界面-->
-      <el-dialog title="新增" :visible.sync ="addFormVisible" :close-on-click-modal="false">
-        <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-          <el-form-item label="书名" prop="name">
-            <el-input v-model="addForm.name" auto-complete="off"></el-input>
+       <!--<carmessage :dialogVisible='dialogVisible'></carmessage>-->
+      <el-dialog title="创建车辆信息"  :visible.sync="dialogVisible" :before-close="handleClose">
+        <el-form :model="carmessage" label-width="100px" :rules="rules" ref="ruleForm">
+          <el-form-item label="车牌号" prop="nubs">
+            <el-input v-model="carmessage.nubs" style="width:300px"></el-input>
           </el-form-item>
-          <el-form-item label="作者" prop="author">
-            <el-input v-model="addForm.author" auto-complete="off"></el-input>
+          <el-form-item label="车架号" prop="Frame_nub">
+            <el-input v-model="carmessage.Frame_nub" style="width:300px"></el-input>
           </el-form-item>
-          <el-form-item label="出版日期">
-            <el-date-picker type="date" placeholder="选择日期" v-model="addForm.publishAt"></el-date-picker>
+          <el-form-item label="发动机号" prop="Engine_nub">
+            <el-input v-model="carmessage.Engine_nub" style="width:300px"></el-input>
           </el-form-item>
-          <el-form-item label="简介" prop="description">
-            <el-input type="textarea" v-model="addForm.description" :rows="8"></el-input>
+          <el-form-item label="品牌" prop="brand_nub">
+            <el-input  v-model="carmessage.brand_nub" style="width:300px"></el-input>
+          </el-form-item>
+          <el-form-item label="型号" prop="Models_nub">
+            <el-input  v-model="carmessage.Models_nub" style="width:300px"></el-input>
+          </el-form-item>
+          <el-form-item label="初登日期" prop="First_place">
+            <el-date-picker
+              v-model="carmessage.First_place"
+              type="date"
+              style="width:300px"
+              placeholder="选择日期">
+            </el-date-picker>
+            <!--<el-input  v-model="carmessage.First_place" style="width:300px"></el-input>-->
+          </el-form-item>
+          <el-form-item label="座位数" prop="seat_nub">
+            <el-input  v-model="carmessage.seat_nub" style="width:300px"></el-input>
+          </el-form-item>
+          <el-form-item label="排量" prop="displacement">
+            <el-input  v-model="carmessage.displacement" style="width:300px"></el-input>
+          </el-form-item>
+          <el-form-item label="车主姓名" prop="name">
+            <el-input  v-model="carmessage.name" style="width:300px"></el-input>
+          </el-form-item>
+          <el-form-item label="手机号码" prop="tel">
+            <el-input  v-model="carmessage.tel" style="width:300px"></el-input>
+          </el-form-item>
+          <el-form-item label="身份证号" prop="idcard">
+            <el-input  v-model="carmessage.idcard" style="width:300px"></el-input>
+          </el-form-item>
+          <el-form-item label="地址信息" prop="address">
+            <el-input  v-model="carmessage.address" style="width:300px"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click.native="addFormVisible = false">取消</el-button>
-          <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
+          <el-button @click.native="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click.native="submitForm('ruleForm')">提交</el-button>
         </div>
       </el-dialog>
-
     </el-col>
   </el-row>
 </template>
 <script>
   import util from '../../common/util'
   import API from '../../api/api_book';
-  import carmessage from './msgmanage/carmessage';
+  // import carmessage from './msgmanage/carmessage';
   export default{
-    components:{carmessage},
+    // components:{carmessage},
     data(){
       return {
         carsearch: {
@@ -262,7 +289,8 @@
             label:'其他保险公司'
           },
         ],
-        disbtnperson: [{
+        disbtnperson: [
+          {
               value: '选项1',
               label: '黄金糕'
             }, {
@@ -277,7 +305,8 @@
             }, {
               value: '选项5',
               label: '北京烤鸭'
-            }],
+            }
+           ],
         riskdata: [
           {},
           {}
@@ -286,51 +315,39 @@
         page: 1,
         limit: 10,
         loading: false,
-        sels: [], //列表选中列 
+        sels: [], //列表选中列
         dialogVisible: false,//编辑界面是否显示
-        editFormRules: {
-          name: [
-            {required: true, message: '请输入书名', trigger: 'blur'}
-          ],
-          author: [
-            {required: true, message: '请输入作者', trigger: 'blur'}
-          ],
-          description: [
-            {required: true, message: '请输入简介', trigger: 'blur'}
-          ]
+        rules:{
+          nubs:[{required:true,message:'不能为空',trigger:'blur'}],
+          Frame_nub:[{required:true,message:'不能为空',trigger:'blur'}],
+          Engine_nub:[{required:true,message:'不能为空',trigger:'blur'}],
+          brand_nub:[{required:true,message:'不能为空',trigger:'blur'}],
+          Models_nub:[{required:true,message:'不能为空',trigger:'blur'}],
+          First_place:[{required:true,message:'不能为空',trigger:'blur'}],
+          seat_nub:[{required:true,message:'不能为空',trigger:'blur'}],
+          displacement:[{required:true,message:'不能为空',trigger:'blur'}],
+          idcard:[{required:true,message:'不能为空',trigger:'blur'}],
+          name:[{required:true,message:'不能为空',trigger:'blur'}],
+          address:[{required:true,message:'不能为空',trigger:'blur'}],
+          tel:[{required:true,message:'不能为空',trigger:'blur'}],
         },
-        editForm: {
-          id: 0,
-          name: '',
-          author: '',
-          publishAt: '',
-          description: ''
+        carmessage:{
+          nubs:'',
+          Frame_nub:'',
+          Engine_nub:'',
+          brand_nub:'',
+          Models_nub:'',
+          First_place:'',
+          seat_nub:'',
+          displacement:'',
+          name:'',
+          idcard:'',
+          address:'',
+          tel:''
         },
-        
-        //新增相关数据
-        addFormVisible: false,//新增界面是否显示
-        addLoading: false,
-        addFormRules: {
-          name: [
-            {required: true, message: '请输入书名', trigger: 'blur'}
-          ],
-          author: [
-            {required: true, message: '请输入作者', trigger: 'blur'}
-          ],
-          description: [
-            {required: true, message: '请输入简介', trigger: 'blur'}
-          ]
-        },
-        addForm: {
-          name: '',
-          author: '',
-          publishAt: '',
-          description: ''
-        }
       }
     },
     methods: {
-     
       handleCurrentChange(val) {
         this.page = val;
         this.search();
@@ -345,7 +362,7 @@
         let params = {
           page: that.page,
           limit: 10,
-          name: that.filters.name
+          // name: that.filters.name
         };
 
         that.loading = true;
@@ -357,7 +374,7 @@
           }
         }, function (err) {
           that.loading = false;
-          that.$message.error({showClose: true, message: err.toString(), duration: 2000});
+          // that.$message.error({showClose: true, message: err.toString(), duration: 2000});
         }).catch(function (error) {
           that.loading = false;
           console.log(error);
@@ -394,35 +411,7 @@
         this.editFormVisible = true;
         this.editForm = Object.assign({}, row);
       },
-      //编辑
-      editSubmit: function () {
-        let that = this;
-        this.$refs.editForm.validate((valid) => {
-          if (valid) {
-            this.loading = true;
-            let para = Object.assign({}, this.editForm);
-            para.publishAt = (!para.publishAt || para.publishAt == '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
-            API.update(para.id, para).then(function (result) {
-              that.loading = false;
-              if (result && parseInt(result.errcode) === 0) {
-                that.$message.success({showClose: true, message: '修改成功', duration: 2000});
-                that.$refs['editForm'].resetFields();
-                that.editFormVisible = false;
-                that.search();
-              } else {
-                that.$message.error({showClose: true, message: '修改失败', duration: 2000});
-              }
-            }, function (err) {
-              that.loading = false;
-              that.$message.error({showClose: true, message: err.toString(), duration: 2000});
-            }).catch(function (error) {
-              that.loading = false;
-              console.log(error);
-              that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
-            });
-          }
-        });
-      },
+
       showAddDialog: function () {
         this.addFormVisible = true;
         this.addForm = {
@@ -487,7 +476,20 @@
         }).catch(() => {
 
         });
-      }
+      },
+      handleClose(){
+        this.dialogVisible = false
+      },
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
     },
     mounted() {
       this.handleSearch()

@@ -49,6 +49,13 @@
             </template>
         </el-table-column>
         <el-table-column  label="操作" >
+            <el-button type="text" size="small">编辑</el-button>
+             <el-button
+                    @click.native.prevent="deleteRow(scope.$index, tableData4)"
+                    type="text"
+                    size="small">
+                     移除
+        </el-button>
         </el-table-column>
       </el-table>
       <!-- 分页 -->
@@ -180,6 +187,9 @@
           }
         });
       },
+       deleteRow(index, rows) {
+        rows.splice(index, 1);
+      }
     },
     mounted() {
       this.handleSearch()
