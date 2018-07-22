@@ -51,3 +51,23 @@ a {
 .warp-breadcrum{
   margin: 5px 10px 15px 0px;
 }
+.bicycle .el-dialog__header{
+  border-bottom: 1px solid #eee;
+}
+.el-form-item__label{
+  background-color: #999;
+  /*padding: 0!important;*/
+  color: #fff!important;
+}
+.el-input{
+  width: auto!important;
+}
+.el-form-item__label{
+  text-align: center;
+  padding: 0!important;
+}
+input, .el-textarea__inner, .el-checkbox__inner{
+  margin-left: 4px;
+}
+
+

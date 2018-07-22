@@ -1,5 +1,5 @@
 <template>
-    <div style="width:100%; height:700px;">
+    <div style="width:100%; min-height:400px;">
          <div id="calendarMsg" style="height:100%;"></div>
     </div>
 </template>
@@ -8,10 +8,9 @@ import echarts from 'echarts'
 export default {
     data(){
         return{
-
             cellSize:[100, 100],
-            pieRadius:30,
-            
+            pieRadius:50,
+
         }
     },
     mounted(){
@@ -19,8 +18,8 @@ export default {
         var dom = document.getElementById("calendarMsg");
         var myChart = echarts.init(dom);
         var app = {};
-        var cellSize = [100, 100];
-        var pieRadius = 30;
+        var cellSize = [50, 50];
+        var pieRadius = 15;
 
         function getVirtulData() {
             var date = +echarts.number.parseDate('2017-02-01');
@@ -73,10 +72,10 @@ export default {
 
         var option = {
             tooltip : {},
-            legend: {
-                data: ['工作', '娱乐', '睡觉'],
-                bottom: 20
-            },
+            // legend: {
+            //     data: ['工作', '娱乐', '睡觉'],
+            //     bottom: 20
+            // },
             calendar: {
                 top: 'middle',
                 left: 'center',
@@ -85,12 +84,12 @@ export default {
                 yearLabel: {
                     show: false,
                     textStyle: {
-                        fontSize: 15,
+                        fontSize: 12,
                     }
                 },
                 dayLabel: {
                     textStyle: {
-                        fontSize: 20,
+                        fontSize: 12,
                         color: '#333',
                     },
                     margin: 30,
@@ -116,7 +115,7 @@ export default {
                         offset: [-cellSize[0] / 2 + 10, -cellSize[1] / 2 + 10],
                         textStyle: {
                             color: '#000',
-                            fontSize: 15
+                            fontSize: 12
                         }
                     }
                 },
@@ -152,7 +151,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  
+
 </style>
 
 

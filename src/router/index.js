@@ -45,7 +45,7 @@ let router = new Router({
     {
       path: '/',
       component: Home,
-      name: '客户营销与维护',
+      name: '客户营销与服务',
       menuShow: true,
       // leaf: true, // 只有一个节点
       iconCls: 'iconfont icon-users', // 图标样式class
@@ -56,14 +56,14 @@ let router = new Router({
     {
       path: '/',
       component: Home,
-      name: '客户开发',
+      name: '开发客户',
       menuShow: true,
       iconCls: 'iconfont icon-books',
       children: [
-        {path: '/kefu/msgmanage', component: msgmanage, name: '信息管理', menuShow: true},
+        {path: '/kefu/msgmanage', component: msgmanage, name: '车辆信息管理', menuShow: true},
         {path: '/kefu/category', component: kefuCategory, name: '保险客户开发', menuShow: true},
-        {path: '/kefu/report', component: reportCategory, name: '业绩报告', menuShow: true},
-        {path: '/kefu/Historical ', component: Historical, name: '开发历史报告', menuShow: true},
+        {path: '/kefu/report', component: reportCategory, name: '开发过程监控', menuShow: true},
+        {path: '/kefu/Historical ', component: Historical, name: '开发历史记录', menuShow: true},
       ]
     },
     {

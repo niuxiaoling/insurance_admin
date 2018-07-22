@@ -39,7 +39,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click.native="dialogVisible = false">取消</el-button>
+      <el-button @click.native="cancel">取消</el-button>
       <el-button type="primary" @click.native="submitForm('ruleForm')">提交</el-button>
     </div>
   </el-dialog>
@@ -47,9 +47,9 @@
 </template>
 <script>
     export default {
-        props:['dialogVisible'],
         data(){
             return{
+              dialogVisible:true,
               rules:{
                 nubs:[{required:true,message:'不能为空',trigger:'blur'}],
                 Frame_nub:[{required:true,message:'不能为空',trigger:'blur'}],
@@ -83,7 +83,9 @@
         },
         methods:{
           handleClose(){
-            this.dialogVisible = false;
+            this.$emit('state',false);
+          },
+          cancel(){
             this.$emit('state',false);
           },
           submitForm(formName) {

@@ -158,7 +158,7 @@
               </el-table-column>
             </el-table>
           </el-col>
-          <el-col :span="8" :offset="16" class="fenye">
+          <el-col :span="8" :offset="14" class="fenye">
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
